@@ -16,17 +16,28 @@
       text-rendering: optimizeLegibility;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
+      
+      /* 定义主题颜色 */
+      --primary-color: #3b82f6;
+      --primary-dark: #2563eb;
+      --success-color: #10b981;
+      --error-color: #ef4444;
+      --warning-color: #f59e0b;
+      --light-bg: #f8fafc;
+      --border-color: #e2e8f0;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
     }
     
     body {
       margin: 0;
       padding: 0;
       min-height: 100vh;
-      background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+      background: #f0f9ff;
       display: flex;
       justify-content: center;
       align-items: flex-start;
-      padding: 1rem;
+      padding: 0;
     }
     
     .container {
@@ -34,7 +45,7 @@
       max-width: 420px;
       min-height: 100vh;
       background: white;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
       overflow: hidden;
       position: relative;
     }
@@ -42,6 +53,7 @@
     .screen {
       display: none;
       min-height: 100vh;
+      transition: transform 0.5s ease-in-out;
     }
     
     .screen.active {
@@ -60,11 +72,6 @@
       100% { transform: scale(1); }
     }
     
-    @keyframes slideUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    
     .fade-in {
       animation: fadeIn 0.5s ease-in-out;
     }
@@ -73,36 +80,32 @@
       animation: pulse 2s infinite;
     }
     
-    .slide-up {
-      animation: slideUp 0.5s ease-out;
-    }
-    
     /* Cover Screen Styles */
     .cover-screen {
       text-align: center;
-      padding: 3rem;
-      background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+      padding: 3rem 2rem;
+      background: var(--primary-color);
       color: white;
     }
     
     .cover-icon {
       width: 120px;
       height: 120px;
-      background: linear-gradient(to bottom right, #facc15, #d97706);
+      background: white;
       border-radius: 50%;
       margin: 0 auto 2rem auto;
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 60px;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      color: var(--primary-color);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     .cover-title {
       font-weight: 900;
       font-size: 1.8rem;
       margin-bottom: 1.5rem;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
     
     .cover-description {
@@ -113,21 +116,22 @@
     }
     
     .start-button {
-      background: linear-gradient(to bottom right, #facc15, #d97706);
-      color: #0f172a;
+      background: white;
+      color: var(--primary-color);
       border: none;
       padding: 1rem 3rem;
       font-size: 1.2rem;
       font-weight: 700;
       border-radius: 9999px;
       cursor: pointer;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
       transition: all 0.3s ease;
+      margin-top: 2rem;
     }
     
     .start-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 15px 20px -5px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
     }
     
     .start-button:active {
@@ -138,10 +142,13 @@
     .case-screen {
       padding: 1.5rem;
       background: white;
+      position: relative;
+      touch-action: pan-y;
+      overflow-y: auto;
     }
     
     .case-header {
-      background: #0f172a;
+      background: var(--primary-color);
       color: white;
       padding: 1rem;
       margin: -1.5rem -1.5rem 1.5rem -1.5rem;
@@ -151,7 +158,7 @@
     
     .case-number {
       font-size: 0.9rem;
-      opacity: 0.8;
+      opacity: 0.9;
       margin-bottom: 0.2rem;
     }
     
@@ -162,11 +169,11 @@
     }
     
     .case-content {
-      background: #f8fafc;
-      padding: 1rem;
+      background: var(--light-bg);
+      padding: 1.2rem;
       border-radius: 0.75rem;
-      border-left: 4px solid #0f172a;
-      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary-color);
+      margin-bottom: 1.5rem;
       font-size: 0.95rem;
       line-height: 1.6;
     }
@@ -175,11 +182,12 @@
       display: flex;
       flex-direction: column;
       gap: 0.75rem;
+      margin-bottom: 2rem;
     }
     
     .option {
       background: white;
-      border: 2px solid #e2e8f0;
+      border: 2px solid var(--border-color);
       border-radius: 0.75rem;
       padding: 1rem;
       cursor: pointer;
@@ -189,11 +197,12 @@
     }
     
     .option:hover {
-      border-color: #0f172a;
+      border-color: var(--primary-color);
+      background-color: #f0f9ff;
     }
     
     .option.selected {
-      border-color: #0f172a;
+      border-color: var(--primary-color);
       background: #f0f9ff;
     }
     
@@ -208,7 +217,7 @@
       opacity: 0.7;
       margin-top: 0.5rem;
       padding-top: 0.5rem;
-      border-top: 1px dashed #cbd5e1;
+      border-top: 1px dashed var(--border-color);
       display: none;
     }
     
@@ -221,18 +230,30 @@
       right: 0.8rem;
       top: 50%;
       transform: translateY(-50%);
-      color: #10b981;
+      color: var(--success-color);
       font-size: 1.25rem;
       font-weight: bold;
       display: none;
     }
     
-    .option.selected .option-correct {
+    .option-wrong {
+      position: absolute;
+      right: 0.8rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--error-color);
+      font-size: 1.25rem;
+      font-weight: bold;
+      display: none;
+    }
+    
+    .option.selected .option-correct,
+    .option.selected .option-wrong {
       display: block;
     }
     
     .next-button {
-      background: linear-gradient(to bottom right, #0f172a, #1e3a8a);
+      background: var(--primary-color);
       color: white;
       border: none;
       padding: 0.9rem 2.5rem;
@@ -240,13 +261,25 @@
       font-weight: 700;
       border-radius: 9999px;
       cursor: pointer;
-      margin-top: 1.5rem;
+      margin-top: 1rem;
       width: 100%;
       display: none;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
     }
     
     .next-button.visible {
       display: block;
+    }
+    
+    .swipe-hint {
+      text-align: center;
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      margin-top: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
     }
     
     /* Result Screen Styles */
@@ -256,11 +289,11 @@
     }
     
     .result-header {
-      background: linear-gradient(to bottom right, #facc15, #d97706);
+      background: var(--primary-color);
       text-align: center;
       padding: 2.5rem 1.5rem;
       margin: -2rem -1.5rem 2rem -1.5rem;
-      color: #0f172a;
+      color: white;
     }
     
     .score-circle {
@@ -273,23 +306,25 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
     
     .score-number {
       font-size: 3rem;
       font-weight: 900;
       font-family: 'Noto Sans SC', serif;
+      color: var(--primary-dark);
     }
     
     .score-label {
       font-size: 0.9rem;
       opacity: 0.8;
+      color: var(--primary-dark);
     }
     
     .rank-badge {
-      background: #0f172a;
-      color: white;
+      background: white;
+      color: var(--primary-dark);
       padding: 0.75rem 1.5rem;
       border-radius: 9999px;
       font-size: 1.25rem;
@@ -310,7 +345,7 @@
     }
     
     .skills-container {
-      background: #f8fafc;
+      background: var(--light-bg);
       padding: 1.5rem;
       border-radius: 1rem;
       margin-bottom: 2rem;
@@ -321,6 +356,7 @@
       font-weight: 700;
       margin-bottom: 1.5rem;
       text-align: center;
+      color: var(--text-primary);
     }
     
     .skill-item {
@@ -332,18 +368,19 @@
       margin-bottom: 0.4rem;
       display: flex;
       justify-content: space-between;
+      color: var(--text-primary);
     }
     
     .skill-bar-container {
       height: 8px;
-      background: #e2e8f0;
+      background: var(--border-color);
       border-radius: 4px;
       overflow: hidden;
     }
     
     .skill-bar {
       height: 100%;
-      background: linear-gradient(to right, #0f172a, #1e3a8a);
+      background: var(--primary-color);
       border-radius: 4px;
       width: 0%;
       transition: width 1s ease-out;
@@ -351,12 +388,13 @@
     
     .comment-container {
       background: white;
-      border: 2px solid #0f172a;
+      border: 2px solid var(--primary-color);
       border-radius: 1rem;
       padding: 1.5rem;
       margin-bottom: 2rem;
       font-size: 1rem;
       font-style: italic;
+      color: var(--text-primary);
     }
     
     .action-buttons {
@@ -366,7 +404,7 @@
     }
     
     .share-button {
-      background: linear-gradient(to bottom right, #10b981, #047857);
+      background: var(--success-color);
       color: white;
       border: none;
       padding: 1rem 2.5rem;
@@ -376,24 +414,29 @@
       cursor: pointer;
       width: 100%;
       transition: all 0.3s ease;
-      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 4px 12px rgba(16, 185, 129, 0.2);
     }
     
     .share-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 6px 16px rgba(16, 185, 129, 0.3);
     }
     
     .restart-button {
       background: white;
-      color: #0f172a;
-      border: 2px solid #0f172a;
+      color: var(--primary-dark);
+      border: 2px solid var(--primary-dark);
       padding: 1rem 2.5rem;
       font-size: 1rem;
       font-weight: 700;
       border-radius: 9999px;
       cursor: pointer;
       width: 100%;
+      transition: all 0.3s ease;
+    }
+    
+    .restart-button:hover {
+      background-color: #f0f9ff;
     }
   </style>
 </head>
@@ -420,6 +463,11 @@
       <div id="optionsContainer" class="options-container"></div>
       
       <button id="nextButton" class="next-button">下一个案件 →</button>
+      
+      <div class="swipe-hint">
+        <i class="fas fa-arrow-down"></i>
+        也可向上滑动进入下一题
+      </div>
     </div>
     
     <!-- Result Screen -->
@@ -644,8 +692,7 @@
               text: "立案调查，收集证据，如属实则向法院提出再审检察建议",
               hint: "完全正确！对于虚假诉讼，检察机关应当依法监督，维护司法公正。",
               score: 10
-            },
-            {
+            },{
               text: "将线索移送公安机关处理",
               hint: "不完全正确。虽然虚假诉讼可能构成犯罪，但检察机关也应当先履行诉讼监督职责。",
               score: 5
@@ -773,7 +820,7 @@
         selectedOption: null
       };
       
-      // DOM elements - 修正了这里的引用
+      // DOM elements
       const screens = {
         cover: document.getElementById('coverScreen'),
         case: document.getElementById('caseScreen'),
@@ -796,6 +843,10 @@
         skillsContainer: document.getElementById('skillsContainer'),
         commentContainer: document.getElementById('commentContainer')
       };
+      
+      // 触摸滑动相关变量
+      let touchStartY = 0;
+      let touchEndY = 0;
       
       // Utility functions
       function shuffleArray(array) {
@@ -867,7 +918,7 @@
           screen.classList.remove('active');
         });
         
-        // Show the selected screen - 修正了这里的显示逻辑
+        // Show the selected screen
         if (screens[screenName]) {
           screens[screenName].classList.add('active');
           gameState.currentScreen = screenName;
@@ -909,11 +960,20 @@
           hintElement.textContent = option.hint;
           optionElement.appendChild(hintElement);
           
-          // Add correct indicator
-          const correctElement = document.createElement('div');
-          correctElement.className = 'option-correct';
-          correctElement.textContent = '✓';
-          optionElement.appendChild(correctElement);
+          // 根据选项得分添加不同图标
+          if (option.score === 10) {
+            // 完全正确的答案显示对勾
+            const correctElement = document.createElement('div');
+            correctElement.className = 'option-correct';
+            correctElement.textContent = '✓';
+            optionElement.appendChild(correctElement);
+          } else {
+            // 不完全正确或完全错误的答案显示叉号
+            const wrongElement = document.createElement('div');
+            wrongElement.className = 'option-wrong';
+            wrongElement.textContent = '✗';
+            optionElement.appendChild(wrongElement);
+          }
           
           // Add click event
           optionElement.addEventListener('click', () => {
@@ -963,8 +1023,15 @@
         
         // Move to next case or show results
         if (gameState.currentCase < cases.length) {
-          gameState.currentCase++;
-          loadCase(gameState.currentCase);
+          // 添加滑动动画效果
+          const caseScreen = screens.case;
+          caseScreen.style.transform = 'translateY(-100%)';
+          
+          setTimeout(() => {
+            gameState.currentCase++;
+            loadCase(gameState.currentCase);
+            caseScreen.style.transform = 'translateY(0)';
+          }, 300);
         } else {
           showResults();
         }
@@ -1074,17 +1141,39 @@
         }
       }
       
-      // 为了确保所有DOM元素都已加载，我们在DOMContentLoaded事件中绑定事件监听器
-      // Event listeners - 修正了这里的事件绑定
+      // 触摸事件处理
+      function handleTouchStart(e) {
+        touchStartY = e.changedTouches[0].screenY;
+      }
+      
+      function handleTouchEnd(e) {
+        touchEndY = e.changedTouches[0].screenY;
+        handleSwipe();
+      }
+      
+      function handleSwipe() {
+        // 只有在选择了选项后才能滑动
+        if (gameState.selectedOption && gameState.currentCase < cases.length) {
+          // 向上滑动足够距离
+          if (touchStartY - touchEndY > 100) {
+            handleCaseComplete();
+          }
+        }
+      }
+      
+      // 绑定触摸事件
+      if (screens.case) {
+        screens.case.addEventListener('touchstart', handleTouchStart);
+        screens.case.addEventListener('touchend', handleTouchEnd);
+      }
+      
+      // Event listeners
       const startButton = document.getElementById('startButton');
       if (startButton) {
         startButton.addEventListener('click', function() {
-          console.log('Start button clicked');
           showScreen('case');
           loadCase(gameState.currentCase);
         });
-      } else {
-        console.error('Start button not found');
       }
       
       const nextButton = document.getElementById('nextButton');
