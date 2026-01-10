@@ -1,12 +1,197 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年迎江检察工作报告</title>
+    <style>
+        /* 1. 全局背景美化：使用淡雅的渐变色，模拟晨曦/水墨感 */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: "思源宋体", "宋体", serif;
+        }
 
-<video 
-    width="100%" 
-    controls 
-    preload="auto" 
-    poster="https://mirror.ghproxy.com/https://github.com/jinhuidui-yjjc/jinhuidui-yjjc.github.io/releases/download/video/cover.jpg">
-    
-    <!-- 视频源 (记得保留加速前缀) -->
-    <source src="https://mirror.ghproxy.com/https://github.com/jinhuidui-yjjc/jinhuidui-yjjc.github.io/releases/download/video/1.10.mp4">
-    
-    您的浏览器不支持 Video 标签。
-</video>
+        /* 2. 主体卡片容器：增加阴影和质感 */
+        .main-card {
+            width: 90%;
+            max-width: 800px; /* 电脑端最大宽度 */
+            background: #ffffff;
+            border-radius: 16px; /* 圆角更大更柔和 */
+            box-shadow: 0 10px 30px rgba(0, 51, 102, 0.15); /* 检察蓝色的淡淡投影 */
+            overflow: hidden; /* 防止内容溢出圆角 */
+            position: relative;
+        }
+
+        /* 3. 顶部标题栏 */
+        .header {
+            background-color: #003366; /* 检察蓝 */
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            font-weight: normal;
+        }
+        .header p {
+            margin: 5px 0 0;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            font-family: sans-serif;
+        }
+
+        /* 4. 视频区域容器 */
+        .video-wrapper {
+            position: relative;
+            width: 100%;
+            background: #000; /* 视频未加载时显示黑色 */
+            line-height: 0; /* 消除视频底部的微小缝隙 */
+        }
+
+        /* 视频标签本体 */
+        video {
+            width: 100%;
+            display: block;
+        }
+
+        /* 5. “点击播放”蒙层（核心交互设计） */
+        .play-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4); /* 半透明遮罩 */
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: opacity 0.3s;
+            z-index: 10;
+        }
+        
+        /* 播放按钮样式 */
+        .play-btn {
+            width: 70px;
+            height: 70px;
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            animation: pulse 2s infinite; /* 呼吸灯动画 */
+        }
+        
+        .play-btn::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 0;
+            border-left: 20px solid #003366;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            margin-left: 5px; /* 视觉修正居中 */
+        }
+
+        .play-text {
+            color: #fff;
+            margin-top: 15px;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 呼吸动画定义 */
+        @keyframes pulse {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.7); }
+            70% { transform: scale(1.05); box-shadow: 0 0 0 15px rgba(255, 255, 255, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 255, 255, 0); }
+        }
+
+        /* 底部版权 */
+        .footer {
+            padding: 15px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main-card">
+        <!-- 顶部标题 -->
+        <div class="header">
+            <h1>2025年迎江检察工作报告</h1>
+            <p>安庆市迎江区人民检察院</p>
+        </div>
+
+        <!-- 视频区域 -->
+        <div class="video-wrapper">
+            <!-- 点击蒙层 -->
+            <div class="play-overlay" id="startBtn">
+                <div class="play-btn"></div>
+                <div class="play-text">点击开启 检阅答卷</div>
+            </div>
+
+            <!-- 
+                核心配置说明：
+                1. poster: 封面图链接
+                2. preload="auto": 预加载视频
+                3. src: 视频链接 (记得加 mirror.ghproxy.com 加速前缀)
+                4. 删除了 muted 和 autoplay，确保有声音
+            -->
+            <video id="reportVideo" playsinline 
+                   poster="https://github.com/jinhuidui-yjjc/jinhuidui-yjjc.github.io/releases/download/video/cover.jpg">
+                <source src="https://github.com/jinhuidui-yjjc/jinhuidui-yjjc.github.io/releases/download/video/1.10.mp4">
+                您的浏览器不支持视频播放。
+            </video>
+        </div>
+
+        <!-- 底部信息 -->
+        <div class="footer">
+            向人民报告 · 请人民检阅
+        </div>
+    </div>
+
+    <script>
+        // 简单的交互逻辑
+        var video = document.getElementById('reportVideo');
+        var overlay = document.getElementById('startBtn');
+
+        // 点击蒙层时的操作
+        overlay.addEventListener('click', function() {
+            // 1. 播放视频
+            video.play().then(() => {
+                // 播放成功后，隐藏蒙层
+                overlay.style.opacity = '0'; 
+                setTimeout(function(){
+                    overlay.style.display = 'none'; // 彻底移除
+                    video.controls = true; // 显示进度条，方便领导拖动
+                }, 300);
+            }).catch(error => {
+                console.log("播放被拦截，请检查浏览器设置");
+            });
+        });
+
+        // 视频播放结束时，把蒙层显示回来（可选）
+        video.addEventListener('ended', function() {
+            video.controls = false;
+            overlay.style.display = 'flex';
+            setTimeout(function(){ overlay.style.opacity = '1'; }, 10);
+        });
+    </script>
+
+</body>
+</html>
